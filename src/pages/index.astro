@@ -6,6 +6,8 @@ import BaseLayout from "../components/layout/BaseLayout.astro";
 import ContentList from "../components/shared/ContentList.astro";
 import Container from "../components/ui/Container.astro";
 
+const base = import.meta.env.BASE_URL;
+
 const siteConfig = await getEntry("site", "home");
 if (!siteConfig) {
   throw new Error("Site configuration not found");
@@ -64,14 +66,14 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     <Section>
       <div class="section-header">
         <h2>{site.sections.blog.title}</h2>
-        <a href="/blog">{site.sections.blog.viewAllText}</a>
+        <a href={`${base}/blog`}>{site.sections.blog.viewAllText}</a>
       </div>
       <ContentList>
         {
           latestPosts.map((post) => (
             <article>
               <div class="title-row">
-                <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                <a href={`${base}/blog/${post.id}`}>{post.data.title}</a>
                 {post.data.publishedAt && (
                   <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
                 )}
@@ -86,7 +88,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     <section class="section">
       <div class="section-header">
         <h2>{site.sections.projects.title}</h2>
-        <a href="/projects">{site.sections.projects.viewAllText}</a>
+        <a href={`${base}/projects`}>{site.sections.projects.viewAllText}</a>
       </div>
       <ContentList>
         {
@@ -114,7 +116,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     <section class="section">
       <div class="section-header">
         <h2>{site.sections.experience.title}</h2>
-        <a href="/experience">{site.sections.experience.viewAllText}</a>
+        <a href={`${base}/experience`}>{site.sections.experience.viewAllText}</a>
       </div>
       <div class="content-list">
         {
