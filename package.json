@@ -8,10 +8,10 @@
     "preview": "astro preview",
     "astro": "astro",
     "deploy": "astro build",
-    "cf-typegen": "wrangler types"
+    "check": "astro check",
+    "prepare": "husky"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.1.0",
     "@fontsource/inter": "^5.1.1",
     "@fontsource/roboto-mono": "^5.1.1",
     "@fontsource/source-sans-pro": "^5.1.0",
@@ -19,7 +19,10 @@
   },
   "devDependencies": {
     "@astrojs/vercel": "^9.0.3",
-    "@cloudflare/workers-types": "^4.20241230.0",
-    "wrangler": "^3.99.0"
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,astro}": "astro check"
   }
 }
