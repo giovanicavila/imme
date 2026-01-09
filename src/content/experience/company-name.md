@@ -1,8 +1,8 @@
 ---
-title: "Senior Software Engineer at TechCorp"
+title: "Front-end developer at Dataside"
 logo: "/images/companies/techcorp.svg"
-description: "Led the development of a microservices-based e-commerce platform serving 1M+ users. Improved system performance by 40% through optimization and caching strategies. Mentored junior developers and implemented CI/CD pipelines."
-startDate: "2022-01-01"
+description: "I specialize in developing user interfaces and managing state with React and TypeScript, focusing on building reusable components using Shadcn and TailwindCSS. I am also responsible for global state management via useContext and integrating REST APIs, leveraging React Query to optimize asynchronous data handling and caching."
+startDate: "2025-06"
 current: true
 ---
 

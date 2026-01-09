@@ -18,6 +18,7 @@ const formatDate = (date: Date | undefined) => {
   return date.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
+    year: "numeric",
   });
 };
 
@@ -162,7 +163,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     opacity: 0.7;
   }
 
@@ -184,6 +185,12 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     width: 1.5rem;
     height: 1.5rem;
     object-fit: contain;
+  }
+
+  .content-list{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   time {

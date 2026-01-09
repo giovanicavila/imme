@@ -1,7 +1,7 @@
 {
   "home": {
-    "name": "ByteKai",
-    "title": "Software Engineer & Curious Tinkerer",
+    "name": "Giovani Avila",
+    "title": "Front-end developer",
     "introduction": "I’m constantly learning and evolving. I love diving into new ideas and finding creative ways to solve problems.",
     "sections": {
       "blog": {
@@ -14,17 +14,17 @@
       },
       "experience": {
         "title": "Experience",
-        "viewAllText": "View full résumé"
+        "viewAllText": "View full resume"
       }
     },
     "socialLinks": [
       {
         "platform": "GitHub",
-        "url": "https://github.com/bytekai"
+        "url": "https://github.com/giovanicavila"
       },
       {
-        "platform": "Twitter",
-        "url": "https://x.com/byteekai"
+        "platform": "Linkedin",
+        "url": "https://www.linkedin.com/in/giovanicavila/"
       }
     ]
   }
