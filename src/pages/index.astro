@@ -66,14 +66,14 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     <Section>
       <div class="section-header">
         <h2>{site.sections.blog.title}</h2>
-        <a href={`${base}/blog`}>{site.sections.blog.viewAllText}</a>
+        <a href={`/${base}/blog`}>{site.sections.blog.viewAllText}</a>
       </div>
       <ContentList>
         {
           latestPosts.map((post) => (
             <article>
               <div class="title-row">
-                <a href={`${base}/blog/${post.id}`}>{post.data.title}</a>
+                <a href={`${base}blog/${post.id}`}>{post.data.title}</a>
                 {post.data.publishedAt && (
                   <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
                 )}
