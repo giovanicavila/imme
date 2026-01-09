@@ -1,62 +1,62 @@
-# Astro Starter Kit: Blog
+# Free Minimal Astro Portfolio
 
-```sh
-pnpm create astro@latest -- --template blog
-```
+A modern, minimalist portfolio website built with Astro and deployed on Cloudflare Pages. Features a collection of writings, projects, and professional experiences.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+![alt text](image.png)
 
-Features:
+## Overview
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+This is a personal portfolio website for ByteKai, a Software Engineer and Curious Tinkerer. The site showcases blog posts, technical notes, project work, and professional experience in a clean, fast-loading format.
 
-## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
 
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
+## Features
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- 🚀 Built with [Astro](https://astro.build) v5.1
+- ⚡️ Deployed on [Cloudflare Pages](https://pages.cloudflare.com)
+- 📝 Content sections:
+  - Blog posts
+  - Technical notes
+  - Project showcase
+  - Professional experience
+  - Curated bookmarks
+- 🎨 Clean typography with:
+  - Inter
+  - Roboto Mono
+  - Source Sans Pro
+- 🌐 Social presence integration
+- 📱 Fully responsive design
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Tech Stack
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+- **Framework**: [Astro](https://astro.build) 5.1.2
+- **Deployment**: Cloudflare Pages
+- **Fonts**: 
+  - @fontsource/inter
+  - @fontsource/roboto-mono
+  - @fontsource/source-sans-pro
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Development
 
-## 🧞 Commands
+### Prerequisites
 
-All commands are run from the root of the project, from a terminal:
+- Node.js (Latest LTS version recommended)
+- npm or pnpm
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+### Local Development
 
-## 👀 Want to learn more?
+1. Clone the repository
+2. Run `pnpm install` to install dependencies
+3. Run `pnpm dev` to start the development server
+4. Open your browser and navigate to `http://localhost:4321` to view the site
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## License
 
-## Credit
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+## Acknowledgments
+
+- [Astro](https://astro.build)
+- [Fontsource](https://fontsource.org)
+- [Tailwind CSS](https://tailwindcss.com)
+

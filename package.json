@@ -1,18 +1,24 @@
 {
-  "name": "dom-enlightenment",
+  "name": "personal-portfolio",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "astro build && wrangler pages dev",
+    "astro": "astro",
+    "deploy": "astro build && wrangler pages deploy",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.13",
-    "@astrojs/rss": "^4.0.14",
-    "@astrojs/sitemap": "^3.6.1",
-    "astro": "^5.16.7",
-    "sharp": "^0.34.3"
+    "@astrojs/cloudflare": "^12.1.0",
+    "@fontsource/inter": "^5.1.1",
+    "@fontsource/roboto-mono": "^5.1.1",
+    "@fontsource/source-sans-pro": "^5.1.0",
+    "astro": "^5.1.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241230.0",
+    "wrangler": "^3.99.0"
   }
 }
