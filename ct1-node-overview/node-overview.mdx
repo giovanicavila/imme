@@ -1,0 +1,43 @@
+# The Document Object Model is a hierarchy tree of JS node Objects
+
+- The DOM (Document Object Model) is an object-oriented representation of an HTML or XML document. It allows us to access and manipulate the structure, style, and content of web documents as a tree of nodes 
+
+## Example
+
+```html
+<div>
+  <p>Hello <b>World</b></p>
+</div>
+```
+
+## Rendered tree
+
+- Document
+  - html
+    - body
+      - div
+        - p
+          - "Hello** "**
+          - b
+            - "World"
+
+
+## Node Object Types
+- DOCUMENT_NODE (window.document)
+- ELEMENT_NODE (`<body/>` `<a/>` `<p/>` ...) 
+- ATTRIBUTE_NODE (`class="funEdges"`)
+- TEXT_NODE (text caracters in HTML document)
+- DOCUMENT_FRAGMENT_NODE (document.createDocumentFragment())
+- DOCUMENT_TYPE_NODE (`<!DOCTYPE html>`)
+
+The DOM tree contains different types of nodes, not just elements. To work with them programmatically, JavaScript needs a way to distinguish between them.
+
+Each node object in the DOM has a numeric value called nodeType. This value identifies what kind of node it is (for example, element, text, comment, document, etc.).
+
+The numeric value makes it easy for code to identify and work with different node types in the DOM.
+
+```for (let key in Node) {
+  if (typeof Node[key] === "number") {
+    console.log(key, "=", Node[key]);
+  }
+}
