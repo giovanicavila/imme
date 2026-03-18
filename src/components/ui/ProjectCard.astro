@@ -1,0 +1,164 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  techs?: string[];
+  image?: string;
+}
+
+const { title, description, url, techs, image } = Astro.props;
+const projectImage = image || "/images/projects/placeholder.jpg";
+---
+
+<article class="project-card">
+  <a href={url} target="_blank" rel="noopener noreferrer" class="project-link">
+    <div class="project-image">
+      <img src={projectImage} alt={title} />
+      <div class="overlay">
+        <span class="view-project">View Project →</span>
+      </div>
+    </div>
+    <div class="project-content">
+      <h3 class="project-title">{title}</h3>
+      <p class="project-description">{description}</p>
+      {
+        techs && techs.length > 0 && (
+          <div class="project-techs">
+            {techs.map((tech) => (
+              <span class="tech-tag">{tech}</span>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </a>
+</article>
+
+<style>
+  .project-card {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .project-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .project-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+     border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .project-card:hover .project-image img {
+    transform: scale(1.05);
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .project-card:hover .overlay {
+    opacity: 1;
+  }
+
+  .view-project {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: white;
+    transform: translateY(10px);
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover .view-project {
+    transform: translateY(0);
+  }
+
+  .project-content {
+    padding: 1.5rem;
+  }
+
+  .project-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    color: var(--color-primary, #60a5fa);
+    transition: color 0.2s ease;
+  }
+
+  .project-card:hover .project-title {
+    color: var(--color-primary-light, #93c5fd);
+  }
+
+  .project-description {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    opacity: 0.8;
+    margin: 0 0 1rem 0;
+  }
+
+  .project-techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-size: var(--text-xs);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .project-card:hover .tech-tag {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 640px) {
+    .project-content {
+      padding: 1.25rem;
+    }
+
+    .project-title {
+      font-size: var(--text-base);
+    }
+
+    .project-description {
+      font-size: var(--text-xs);
+    }
+  }
+</style>

@@ -5,6 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../components/layout/BaseLayout.astro";
 import ContentList from "../components/shared/ContentList.astro";
 import Container from "../components/ui/Container.astro";
+import ProjectCard from "../components/ui/ProjectCard.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -63,6 +64,31 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
       }
     </section>
 
+    <section class="section">
+      <div class="section-header">
+        <h2>{site.sections.experience.title}</h2>
+        <a href={`${base}/experience`}>{site.sections.experience.viewAllText}</a>
+      </div>
+      <div class="content-list">
+        {
+          sortedExperiences.slice(0, 3).map((exp) => (
+            <article>
+              <div class="title-row">
+                <div class="company-info">
+                  <img src={exp.data.logo} alt="" class="company-logo" />
+                  <span>{exp.data.title}</span>
+                </div>
+                <time>
+                  {formatDate(exp.data.startDate)} - {exp.data.current ? "Present" : formatDate(exp.data.endDate)}
+                </time>
+              </div>
+              <p class="muted-text">{exp.data.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
     <Section>
       <div class="section-header">
         <h2>{site.sections.blog.title}</h2>
@@ -90,51 +116,18 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
         <h2>{site.sections.projects.title}</h2>
         <a href={`${base}/projects`}>{site.sections.projects.viewAllText}</a>
       </div>
-      <ContentList>
+      <div class="projects-grid">
         {
           featuredProjects.map((project) => (
-            <article>
-              <div class="title-row">
-                <a href={project.data.url} target="_blank" rel="noopener noreferrer">
-                  {project.data.title}
-                </a>
-              </div>
-              <p class="muted-text">{project.data.description}</p>
-              {project.data.techs && (
-                <div class="tags">
-                  {project.data.techs.map((tech) => (
-                    <span>{tech}</span>
-                  ))}
-                </div>
-              )}
-            </article>
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              url={project.data.url}
+              techs={project.data.techs}
+              image={project.data.image}    
+            />
           ))
-        }
-      </ContentList>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <h2>{site.sections.experience.title}</h2>
-        <a href={`${base}/experience`}>{site.sections.experience.viewAllText}</a>
-      </div>
-      <div class="content-list">
-        {
-          sortedExperiences.slice(0, 2).map((exp) => (
-            <article>
-              <div class="title-row">
-                <div class="company-info">
-                  <img src={exp.data.logo} alt="" class="company-logo" />
-                  <span>{exp.data.title}</span>
-                </div>
-                <time>
-                  {formatDate(exp.data.startDate)} - {exp.data.current ? "Present" : formatDate(exp.data.endDate)}
-                </time>
-              </div>
-              <p class="muted-text">{exp.data.description}</p>
-            </article>
-          ))
-        }
+        } 
       </div>
     </section>
   </Container>
@@ -210,6 +203,13 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
   .tags span {
     font-size: var(--text-xs);
     opacity: 0.5;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
   }
 
   .social-links {
