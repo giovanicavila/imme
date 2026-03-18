@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+import BaseHero from "../../components/shared/BaseHero.astro";
+import Container from "../../components/ui/Container.astro";
+import ExperienceCard from "../../components/ui/ExperienceCard.astro";
+
+const experiences = await getCollection("experience");
+
+const sortedExperiences = experiences.sort(
+  (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()
+);
+---
+
+<BaseLayout title="Experience" description="My professional experience and work history">
+  <Container>
+    <BaseHero title="Experience" description="My professional journey and work history" />
+    <section class="experience-list">
+      {
+        sortedExperiences.map((exp, index) => (
+          <ExperienceCard
+            title={exp.data.title}
+            description={exp.data.description}
+            logo={exp.data.logo}
+            startDate={exp.data.startDate}
+            endDate={exp.data.endDate}
+            current={exp.data.current}
+            slug={exp.id}
+            isFirst={index === 0}
+            isLast={index === sortedExperiences.length - 1}
+          />
+        ))
+      }
+    </section>
+  </Container>
+</BaseLayout>
+
+<style>
+  .experience-list {
+    margin-top: 3rem;
+    max-width: 800px;
+  }
+</style>

@@ -67,7 +67,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     <section class="section">
       <div class="section-header">
         <h2>{site.sections.experience.title}</h2>
-        <a href={`${base}/experience`}>{site.sections.experience.viewAllText}</a>
+        <a href="/experience">{site.sections.experience.viewAllText}</a>
       </div>
       <div class="content-list">
         {
@@ -185,7 +185,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
   .content-list{
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
   }
 
   time {

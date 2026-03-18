@@ -1,0 +1,206 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+import Container from "../../components/ui/Container.astro";
+
+export async function getStaticPaths() {
+  const experiences = await getCollection("experience");
+  return experiences.map((exp) => ({
+    params: { slug: exp.id },
+    props: { experience: exp },
+  }));
+}
+
+interface Props {
+  experience: CollectionEntry<"experience">;
+}
+
+const { experience } = Astro.props;
+const { Content } = await render(experience);
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+};
+
+const duration = () => {
+  const start = experience.data.startDate;
+  const end = experience.data.current ? new Date() : experience.data.endDate;
+  if (!end) return "";
+  
+  const months = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 30));
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+  
+  if (years > 0 && remainingMonths > 0) {
+    return `${years} year${years > 1 ? 's' : ''} ${remainingMonths} month${remainingMonths > 1 ? 's' : ''}`;
+  } else if (years > 0) {
+    return `${years} year${years > 1 ? 's' : ''}`;
+  } else {
+    return `${remainingMonths} month${remainingMonths > 1 ? 's' : ''}`;
+  }
+};
+---
+
+<BaseLayout title={experience.data.title} description={experience.data.description}>
+  <Container>
+    <article class="experience-detail">
+      <header class="experience-header">
+        <img src={experience.data.logo} alt={experience.data.title} class="company-logo" />
+        <div class="header-content">
+          <h1 class="experience-title">{experience.data.title}</h1>
+          <time class="experience-date">
+            {formatDate(experience.data.startDate)} - {experience.data.current ? "Present" : experience.data.endDate ? formatDate(experience.data.endDate) : "Present"}
+            <span class="duration">• {duration()}</span>
+          </time>
+        </div>
+      </header>
+      
+      <div class="experience-description">
+        <p>{experience.data.description}</p>
+      </div>
+
+      <div class="experience-content">
+        <Content />
+      </div>
+
+      <div class="back-link">
+        <a href="/experience">← Back to all experiences</a>
+      </div>
+    </article>
+  </Container>
+</BaseLayout>
+
+<style>
+  .experience-detail {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 0;
+  }
+
+  .experience-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .company-logo {
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 8px;
+  }
+
+  .header-content {
+    flex: 1;
+  }
+
+  .experience-title {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: var(--color-primary, #e0e0e0);
+  }
+
+  .experience-date {
+    font-size: var(--text-sm);
+    opacity: 0.7;
+    display: block;
+  }
+
+  .duration {
+    opacity: 0.6;
+  }
+
+  .experience-description {
+    margin-bottom: 2rem;
+    font-size: var(--text-base);
+    line-height: 1.7;
+    opacity: 0.9;
+  }
+
+  .experience-content {
+    font-size: var(--text-base);
+    line-height: 1.7;
+  }
+
+  .experience-content :global(h2) {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+    color: var(--color-primary, #e0e0e0);
+  }
+
+  .experience-content :global(h3) {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 1.5rem 0 0.75rem 0;
+  }
+
+  .experience-content :global(ul) {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .experience-content :global(li) {
+    margin: 0.5rem 0;
+    opacity: 0.9;
+  }
+
+  .experience-content :global(p) {
+    margin: 1rem 0;
+    opacity: 0.9;
+  }
+
+  .experience-content :global(strong) {
+    font-weight: 600;
+    opacity: 1;
+  }
+
+  .back-link {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .back-link a {
+    font-size: var(--text-sm);
+    opacity: 0.7;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .back-link a:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    .experience-detail {
+      padding: 2rem 0;
+    }
+
+    .experience-header {
+      gap: 1rem;
+    }
+
+    .company-logo {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .experience-title {
+      font-size: var(--text-xl);
+    }
+
+    .experience-content :global(h2) {
+      font-size: var(--text-lg);
+    }
+  }
+</style>

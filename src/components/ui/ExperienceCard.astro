@@ -1,0 +1,216 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  logo: string;
+  startDate: Date;
+  endDate?: Date;
+  current?: boolean;
+  slug?: string;
+  isFirst?: boolean;
+  isLast?: boolean;
+}
+
+const { title, description, logo, startDate, endDate, current, slug, isFirst, isLast } = Astro.props;
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  });
+};
+
+const duration = () => {
+  const start = startDate;
+  const end = current ? new Date() : endDate;
+  if (!end) return "";
+  
+  const months = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 30));
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+  
+  if (years > 0 && remainingMonths > 0) {
+    return `${years} yr${years > 1 ? 's' : ''} ${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
+  } else if (years > 0) {
+    return `${years} yr${years > 1 ? 's' : ''}`;
+  } else {
+    return `${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
+  }
+};
+---
+
+<article class:list={["timeline-item", { "is-first": isFirst, "is-last": isLast }]}>
+  <div class="timeline-marker">
+    <div class="timeline-icon">
+      <img src={logo} alt={title} class="company-logo" />
+    </div>
+    {!isLast && <div class="timeline-line"></div>}
+  </div>
+  
+  <div class="timeline-content">
+    <a href={slug ? `/experience/${slug}` : undefined} class:list={["experience-link", { clickable: !!slug }]}>
+      <div class="experience-header">
+        <h3 class="experience-title">{title}</h3>
+        <time class="experience-date">
+          {formatDate(startDate)} - {current ? "Present" : endDate ? formatDate(endDate) : "Present"}
+          <span class="duration">• {duration()}</span>
+        </time>
+      </div>
+      <p class="experience-description">{description}</p>
+    </a>
+  </div>
+</article>
+
+<style>
+  .timeline-item {
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+  }
+
+  .timeline-item:not(.is-last) {
+    padding-bottom: 3rem;
+  }
+
+  .timeline-marker {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .timeline-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-item:hover .timeline-icon {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+    transform: scale(1.05);
+  }
+
+  .company-logo {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+  }
+
+  .timeline-line {
+    position: absolute;
+    top: 3.5rem;
+    width: 2px;
+    height: calc(100% + 3rem);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+  }
+
+  .timeline-content {
+    flex: 1;
+    padding-top: 0.5rem;
+  }
+
+  .experience-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .experience-link.clickable:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+    cursor: pointer;
+  }
+
+  .experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .experience-title {
+    font-size: var(--text-base);
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-primary, #e0e0e0);
+  }
+
+  .experience-date {
+    font-size: var(--text-xs);
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+
+  .duration {
+    opacity: 0.5;
+  }
+
+  .experience-description {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-item {
+      gap: 1rem;
+    }
+
+    .timeline-item:not(.is-last) {
+      padding-bottom: 2.5rem;
+    }
+
+    .timeline-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .company-logo {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+
+    .timeline-line {
+      top: 3rem;
+      height: calc(100% + 2.5rem);
+    }
+
+    .experience-link {
+      padding: 0.875rem 1.25rem;
+    }
+
+    .experience-header {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .experience-title {
+      font-size: var(--text-sm);
+    }
+
+    .experience-description {
+      font-size: var(--text-xs);
+    }
+  }
+</style>
