@@ -62,7 +62,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
           </div>
         )
       }
-    </section>
+    </section>  
 
     <section class="section">
       <div class="section-header">
@@ -92,7 +92,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     <Section>
       <div class="section-header">
         <h2>{site.sections.blog.title}</h2>
-        <a href={`/${base}/blog`}>{site.sections.blog.viewAllText}</a>
+        <a href={`${base}blog`}>{site.sections.blog.viewAllText}</a>
       </div>
       <ContentList>
         {
@@ -114,7 +114,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     <section class="section">
       <div class="section-header">
         <h2>{site.sections.projects.title}</h2>
-        <a href={`${base}/projects`}>{site.sections.projects.viewAllText}</a>
+        <a href="https://github.com/giovanicavila" target="_blank" rel="noopener noreferrer">{site.sections.projects.viewAllText}</a>
       </div>
       <div class="projects-grid">
         {
