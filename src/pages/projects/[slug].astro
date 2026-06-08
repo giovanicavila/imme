@@ -1,0 +1,276 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+import Container from "../../components/ui/Container.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={project.data.title} description={project.data.description}>
+  <Container>
+    <article class="project-detail">
+      <header class="project-header">
+        {project.data.image && (
+          <img src={project.data.image} alt={project.data.title} class="project-image" />
+        )}
+        <div class="header-content">
+          <h1 class="project-title">{project.data.title}</h1>
+          <p class="project-description">{project.data.description}</p>
+          {project.data.techs && project.data.techs.length > 0 && (
+            <div class="project-techs">
+              {project.data.techs.map((tech) => (
+                <span class="tech-tag">{tech}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
+
+      <div class="project-content">
+        <Content />
+      </div>
+
+      <div class="project-links">
+        {project.data.githubUrl && (
+          <a href={project.data.githubUrl} target="_blank" rel="noopener noreferrer" class="link-button">
+            GitHub Repository →
+          </a>
+        )}
+        <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="link-button secondary">
+          View Project →
+        </a>
+      </div>
+
+      <div class="back-link">
+        <a href="/projects">← Back to all projects</a>
+      </div>
+    </article>
+  </Container>
+</BaseLayout>
+
+<style>
+  .project-detail {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 0;
+  }
+
+  .project-header {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .project-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .header-content {
+    flex: 1;
+  }
+
+  .project-title {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    color: var(--color-primary, #e0e0e0);
+  }
+
+  .project-description {
+    font-size: var(--text-base);
+    line-height: 1.7;
+    opacity: 0.9;
+    margin: 0 0 1rem 0;
+  }
+
+  .project-techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-size: var(--text-xs);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.7;
+  }
+
+  .project-content {
+    font-size: var(--text-base);
+    line-height: 1.7;
+  }
+
+  .project-content :global(h2) {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+    color: var(--color-primary, #e0e0e0);
+  }
+
+  .project-content :global(h3) {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 1.5rem 0 0.75rem 0;
+  }
+
+  .project-content :global(ul) {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .project-content :global(li) {
+    margin: 0.5rem 0;
+    opacity: 0.9;
+  }
+
+  .project-content :global(p) {
+    margin: 1rem 0;
+    opacity: 0.9;
+  }
+
+  .project-content :global(strong) {
+    font-weight: 600;
+    opacity: 1;
+  }
+
+  .project-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: var(--text-sm);
+  }
+
+  .project-content :global(th) {
+    text-align: left;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+  }
+
+  .project-content :global(td) {
+    padding: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    opacity: 0.9;
+  }
+
+  .project-content :global(code) {
+    font-family: 'Roboto Mono', monospace;
+    font-size: var(--text-sm);
+    padding: 0.125rem 0.375rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+
+  .project-content :global(pre) {
+    overflow-x: auto;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    margin: 1rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .project-content :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+
+  .project-content :global(hr) {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 2rem 0;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .link-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-primary, #e0e0e0);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.2s ease;
+  }
+
+  .link-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+  }
+
+  .link-button.secondary {
+    background: transparent;
+    opacity: 0.7;
+  }
+
+  .link-button.secondary:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .back-link {
+    margin-top: 2rem;
+  }
+
+  .back-link a {
+    font-size: var(--text-sm);
+    opacity: 0.7;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .back-link a:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    .project-detail {
+      padding: 2rem 0;
+    }
+
+    .project-title {
+      font-size: var(--text-xl);
+    }
+
+    .project-content :global(h2) {
+      font-size: var(--text-lg);
+    }
+
+    .project-links {
+      flex-direction: column;
+    }
+  }
+</style>

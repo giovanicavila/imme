@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+import BaseHero from "../../components/shared/BaseHero.astro";
+import Container from "../../components/ui/Container.astro";
+import ProjectCard from "../../components/ui/ProjectCard.astro";
+
+const projects = await getCollection("projects");
+---
+
+<BaseLayout title="Projects" description="My projects and side projects">
+  <Container>
+    <BaseHero title="Projects" description="Things I've built" />
+    <section class="projects-grid">
+      {
+        projects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            url={project.data.url}
+            techs={project.data.techs}
+            image={project.data.image}
+            slug={project.id}
+          />
+        ))
+      }
+    </section>
+  </Container>
+</BaseLayout>
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+</style>
