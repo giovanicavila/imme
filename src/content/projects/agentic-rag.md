@@ -3,7 +3,7 @@ title: "Agentic RAG"
 description: "A Retrieval-Augmented Generation API with hybrid search (BM25 + vector + RRF), agentic self-correction loop, and full observability. Built to be model-agnostic — swapping from OpenRouter to Ollama requires zero code changes."
 url: "https://github.com/giovanicavila/Agentic_RAG"
 githubUrl: "https://github.com/giovanicavila/Agentic_RAG"
-image: "/images/projects/rag-architecture.png"
+image: "/images/r2d2.jpeg"
 featured: true
 techs: ["FastAPI", "Python", "ChromaDB", "BM25", "RRF", "sentence-transformers", "RAGAS", "Pydantic"]
 ---
