@@ -44,12 +44,7 @@ const { Content } = await render(project);
       </div>
 
       <div class="project-links">
-        {project.data.githubUrl && (
-          <a href={project.data.githubUrl} target="_blank" rel="noopener noreferrer" class="link-button">
-            GitHub Repository →
-          </a>
-        )}
-        <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="link-button secondary">
+        <a href={project.data.url} target="_blank" rel="noopener noreferrer" class="link-button">
           View Project →
         </a>
       </div>
